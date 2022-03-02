@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ace.backend.exceptions.ResourceNotFoundException;
+
 import com.ace.backend.models.board;
 import com.ace.backend.repositories.BoardRepository;
 
@@ -34,11 +35,18 @@ public class BoardController {
 			board board = boardRepo.findById(id)
 					.orElseThrow(() -> new ResourceNotFoundException("Boardtype not found")); 
 					return ResponseEntity.ok(board);
-			
-		}
+			}
+		 
+		 @GetMapping("boards/{description}")
+			public List<board> getboardsBydescription(@PathVariable String description) {
+				List<board> boards = boardRepo.findBydescription(description);
+				if(boards.isEmpty()) {
+					System.out.println(new ResourceNotFoundException("Charcuterie Boards(s) with the name " + description + " not found."));
+				}
+				return boardRepo.findBydescription(description);
+			}
 
-		
-		
+			
 	
 }
 	
