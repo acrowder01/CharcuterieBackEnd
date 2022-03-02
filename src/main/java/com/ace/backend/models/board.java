@@ -23,7 +23,7 @@ public class board {
 	private String description;
 	
 	@Column
-	private String price;
+	private int price;
 	
 	public int getId() {
 		return id;
@@ -44,11 +44,11 @@ public class board {
 //	public void setDescription(String description) {
 //		this.description = description;
 //	}
-//	public String getPrice() {
-//		return price;
-//	}
-//	public void setPrice(String price) {
-//		this.price = price;
-//	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	
 	}
