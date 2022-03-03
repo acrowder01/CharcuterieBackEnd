@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,13 +56,30 @@ public class BoardController {
 				return boardRepo.save(board);
 			}
 			
+			@PutMapping("boardtype/{id}")
+			public ResponseEntity<board> updateboard(@PathVariable int id, @RequestBody board newboardInfo) {
+				board foundboard = boardRepo.findById(id)
+						.orElseThrow(() -> new ResourceNotFoundException("Board not found."));
+				
+				
+				foundboard.setDescription(newboardInfo.getDescription());
+		    	foundboard.setBoardtype(newboardInfo.getBoardtype());
+				foundboard.setPrice(newboardInfo.getPrice());
+				
+				board updatedboard = boardRepo.save(foundboard);
+				
+				return ResponseEntity.ok(updatedboard);
+			}
+			
+			
+			
 			@DeleteMapping("boardtype/{id}")
 			public ResponseEntity<String> deleteboard(@PathVariable int id) {
 				boardRepo.findById(id)
 				
 				.orElseThrow(() -> new ResourceNotFoundException("Student not found."));
 				
-				String message =  "Board has been deleted.";
+				String message =  "board has been deleted.";
 				
 				boardRepo.deleteById(id);
 				return new ResponseEntity<>(message, HttpStatus.OK);
