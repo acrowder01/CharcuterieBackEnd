@@ -61,7 +61,7 @@ public class BoardController {
 				board foundboard = boardRepo.findById(id)
 						.orElseThrow(() -> new ResourceNotFoundException("Board not found."));
 				
-				
+//				Update info of found student using setters and getters
 				foundboard.setDescription(newboardInfo.getDescription());
 		    	foundboard.setBoardtype(newboardInfo.getBoardtype());
 				foundboard.setPrice(newboardInfo.getPrice());
